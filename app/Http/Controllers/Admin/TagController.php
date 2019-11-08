@@ -13,7 +13,9 @@ class TagController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { }
+    {
+        return view('admin/show');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -33,7 +35,7 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**

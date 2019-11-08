@@ -9,10 +9,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
+            @if($errors->any())
+            @foreach($errors->all() as $error)
+            <p class="alert alert-danger">{{$error}}</p>
+            @endforeach
+            @endif
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Blog Info</h4>
-                    <form>
+                    <form action="{{route('post.store')}}" method="POST">
+                        @csrf
                         <div class="form-group row">
                             <label for="fname" class="col-sm-1 text-right control-label col-form-label">Title</label>
                             <div class="col-sm-11">
@@ -35,7 +41,7 @@
                             <label for="email1" class="col-sm-1 text-right control-label col-form-label">File Upload</label>
                             <div class="col-sm-5">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="validatedCustomFile image" name="image" required="">
+                                    <input type="file" class="custom-file-input" id="validatedCustomFile image" name="image">
                                     <label class="custom-file-label" for="validatedCustomFile image">Choose file...</label>
                                 </div>
                             </div>
@@ -52,11 +58,13 @@
                         <div class="form-group row">
                             <label for="lname" class="col-sm-1 text-right control-label col-form-label">Body</label>
                             <div class="col-sm-11">
-                                <textarea type="text" class="form-control" id="editor" name="body" style="height: 300px;"></textarea>
+                                <textarea id="editor" class="form-control" name="body" style="height: 300px;">
+                                </textarea>
+                                <!-- <textarea type="text" class="form-control" id="editor" name="body" style="height: 300px;"></textarea> -->
                             </div>
                         </div>
                         <hr>
-                        <button type="button" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
@@ -67,8 +75,11 @@
     @section('scripts')
     <script src="{{asset('admin/assets/libs/quill/dist/quill.min.js')}}"></script>
     <script>
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
+        $(function() {
+            var quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+        })
     </script>
     @endsection

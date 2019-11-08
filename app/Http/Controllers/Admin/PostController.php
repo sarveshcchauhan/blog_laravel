@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\user\post;
 
 class PostController extends Controller
 {
@@ -13,7 +14,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { }
+    {
+        return view('admin/show');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -33,7 +36,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_data = $request->validate([
+            'title' => 'required',
+            'subtitle' => 'required',
+            'slug' => 'required',
+        ]);
+
+
+        $post = new post;
+        $post->title = $request->title;
+        $post->subtitle = $request->subtitle;
+        $post->slug = $request->slug;
+        $post->body = $request->body;
+        $post->save();
+
+        return redirect(route('post.index'));
     }
 
     /**
@@ -43,9 +60,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
+    { }
 
     /**
      * Show the form for editing the specified resource.
