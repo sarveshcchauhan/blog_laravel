@@ -26,13 +26,13 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::resource('admin/home', 'HomeController');
 
     //Post Routes
-    Route::resource('admin/post', 'PostController');
+    Route::resource('admin/post/post', 'PostController');
 
     //Tag Routes
-    Route::resource('admin/tag', 'TagController');
+    Route::resource('admin/tag/tag', 'TagController');
 
     //Category Routes
-    Route::resource('admin/category', 'CategoryController');
+    Route::resource('admin/category/category', 'CategoryController');
 
     //User Routes
     Route::resource('admin/user', 'UserController');

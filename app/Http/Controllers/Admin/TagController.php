@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+//For ORM using Eloquent 
+use App\Model\user\tag;
 
 class TagController extends Controller
 {
@@ -14,7 +16,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('admin/show');
+        //Display data from database using ORM
+        $tags = tag::all();
+        //compact is use to return data to view
+        return view('admin/tag/showtags', compact('tags'));
     }
 
     /**
@@ -24,7 +29,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin/tag');
+        return view('admin/tag/tag');
     }
 
     /**
@@ -35,7 +40,19 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //For validation
+        $validator_tag = $request->validate([
+            'tagtitle' => 'required',
+            'tagslug' => 'required'
+        ]);
+
+        //For inserting
+        $tag = new tag;
+        $tag->name = $request->tagtitle;
+        $tag->slug = $request->tagslug;
+        $tag->save();
+        //for redirection
+        return redirect(route('tag.index'));
     }
 
     /**
@@ -57,7 +74,8 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tag = tag::where('id', $id)->first();
+        return view('admin.tag.edit', compact('tag'));
     }
 
     /**
@@ -69,7 +87,18 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator_tag = $request->validate([
+            'tagtitle' => 'required',
+            'tagslug' => 'required'
+        ]);
+
+        //For inserting
+        $tag = tag::find($id);
+        $tag->name = $request->tagtitle;
+        $tag->slug = $request->tagslug;
+        $tag->save();
+        //for redirection
+        return redirect(route('tag.index'));
     }
 
     /**
@@ -80,6 +109,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        tag::where("id", $id)->delete();
+        return redirect(route('tag.index'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Model\user\category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin/show');
+
+        $categories = category::all();
+        return view('admin.category.showcategory', compact('categories'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin/categories');
+        return view('admin/category/categories');
     }
 
     /**
@@ -35,7 +38,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate_category = $request->validate([
+            'categorytitle' => 'required',
+            'categoryslug' => 'required'
+        ]);
+
+        $category = new category;
+
+        $category->name = $request->categorytitle;
+        $category->slug = $request->categoryslug;
+        $category->save();
+        return redirect(route('category.index'));
     }
 
     /**
@@ -57,7 +70,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = category::where('id', $id)->first();
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -69,7 +83,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate_category = $request->validate([
+            'categorytitle' => 'required',
+            'categoryslug' => 'required'
+        ]);
+
+        $category = category::find($id);
+        $category->name = $request->categorytitle;
+        $category->slug = $request->categoryslug;
+        $category->save();
+        return redirect(route('category.index'));
     }
 
     /**
@@ -80,6 +103,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        category::where("id", $id)->delete();
+        return redirect(route('category.index'));
     }
 }

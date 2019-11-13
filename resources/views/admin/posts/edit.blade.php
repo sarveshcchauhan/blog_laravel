@@ -1,6 +1,8 @@
-@extends('admin/app')
+@extends('admin/layouts/app')
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/libs/quill/dist/quill.snow.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('admin/assets/libs/select2/dist/css/select2.min.css')}}">
+
 @endsection
 @section('body-content')
 <!-- ============================================================== -->
@@ -14,27 +16,30 @@
             <p class="alert alert-danger">{{$error}}</p>
             @endforeach
             @endif
+            <a href="{{route('post.index')}}" class="btn btn-info mb-2">Go Back</a>
+
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Blog Info</h4>
-                    <form action="{{route('post.store')}}" method="POST">
+                    <form action="{{route('post.update',$post->id)}}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="fname" class="col-sm-1 text-right control-label col-form-label">Title</label>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{$post->title}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="lname" class="col-sm-1 text-right control-label col-form-label">Sub Title</label>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sub Title">
+                                <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sub Title" value="{{$post->subtitle}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="lname" class="col-sm-1 text-right control-label col-form-label">Slug</label>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="slug" name="slug" placeholder="slug url">
+                                <input type="text" class="form-control" id="slug" name="slug" placeholder="slug url" value="{{$post->slug}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -50,16 +55,41 @@
                             <label class="col-sm-1 text-right control-label ">Checkboxes</label>
                             <div class="col-sm-5">
                                 <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 status" name="publish">
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 status" name="publish" value="1" @if($post->status === 1) checked @endif>
                                     <label class="custom-control-label" for="customControlAutosizing1 status">Publish</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-2 m-t-15 text-right control-label">Select Tags</label>
+                                    <div class="col-md-8">
+                                        <select class="select2 form-control m-t-15" name="tags[]" multiple="multiple" style="height: 36px;width: 100%;">
+                                            @foreach($tags as $tag)
+                                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-2 m-t-15 text-right control-label">Select Category</label>
+                                    <div class="col-md-8">
+                                        <select class="select2 form-control m-t-15" name="categories[]" multiple="multiple" style="height: 36px;width: 100%;">
+                                            @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="lname" class="col-sm-1 text-right control-label col-form-label">Body</label>
                             <div class="col-sm-11">
-                                <textarea id="editor" class="form-control" name="body" style="height: 300px;">
-                                </textarea>
+                                <textarea class="form-control" name="body" style="height: 300px;">{{$post->body}}</textarea>
                                 <!-- <textarea type="text" class="form-control" id="editor" name="body" style="height: 300px;"></textarea> -->
                             </div>
                         </div>
@@ -74,12 +104,14 @@
 
     @section('scripts')
     <script src="{{asset('admin/assets/libs/quill/dist/quill.min.js')}}"></script>
+    <script src="{{asset('admin/assets/libs/select2/dist/js/select2.full.min.js')}}"></script>
+    <script src="{{asset('admin/assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script>
         $(function() {
             var quill = new Quill('#editor', {
                 theme: 'snow'
             });
-
-        })
+            $(".select2").select2();
+        });
     </script>
     @endsection

@@ -1,4 +1,4 @@
-@extends('admin/app')
+@extends('admin/layouts/app')
 @section('body-content')
 <!-- ============================================================== -->
 <!-- Container fluid  -->
