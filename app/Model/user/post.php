@@ -11,12 +11,12 @@ class post extends Model
     {
         //connect model name
         //belongsToMany(Model_name_to_connect,table_name)
-        return $this->belongsToMany('App\Model\user\tag', 'post_tags');
+        return $this->belongsToMany('App\Model\user\tag', 'post_tags')->withTimestamps();
     }
 
     public function category()
     {
 
-        return $this->belongsToMany('App\Model\user\category', 'category_posts');
+        return $this->belongsToMany('App\Model\user\category', 'category_posts')->withTimestamps();
     }
 }

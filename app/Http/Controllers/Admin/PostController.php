@@ -56,8 +56,9 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->status = $request->publish;
         $post->body = $request->body;
-        $post->tags()->sync($request->tags);
         $post->save();
+        $post->tags()->sync($request->tags);
+        $post->category()->sync($request->categories);
 
         return redirect(route('post.index'));
     }
@@ -79,7 +80,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = post::where('id', $id)->first();
+        $post = post::with('tags', 'category')->where('id', $id)->first();
         $categories = category::all();
         $tags = tag::all();
         return view('admin.posts.edit', compact('post', 'categories', 'tags'));
@@ -109,6 +110,8 @@ class PostController extends Controller
         $post->status = $request->publish;
         $post->body = $request->body;
         $post->save();
+        $post->tags()->sync($request->tags);
+        $post->category()->sync($request->categories);
 
         return redirect(route('post.index'));
     }

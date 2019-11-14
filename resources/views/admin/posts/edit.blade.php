@@ -67,7 +67,7 @@
                                     <div class="col-md-8">
                                         <select class="select2 form-control m-t-15" name="tags[]" multiple="multiple" style="height: 36px;width: 100%;">
                                             @foreach($tags as $tag)
-                                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                            <option value="{{$tag->id}}" @foreach($post->tags as $postTag) @if($postTag->id == $tag->id) selected @endif @endforeach >{{$tag->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -79,7 +79,7 @@
                                     <div class="col-md-8">
                                         <select class="select2 form-control m-t-15" name="categories[]" multiple="multiple" style="height: 36px;width: 100%;">
                                             @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            <option value="{{$category->id}}" @foreach($post->category as $postCategory) @if($postCategory->id == $category->id) selected @endif @endforeach >{{$category->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
