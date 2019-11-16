@@ -16,8 +16,9 @@
 Route::group(['namespace' => 'User'], function () {
 
     Route::get('/', 'HomeController@index');
-    Route::get('post', 'PostController@index')->name('blog_post');
+    Route::get('post/{post}', 'PostController@post')->name('blog_post');
     // ->name only defines the name of route for the url purpose
+
 });
 
 //Admin Routes

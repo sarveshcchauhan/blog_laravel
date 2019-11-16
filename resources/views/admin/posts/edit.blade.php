@@ -89,12 +89,12 @@
                         <div class="form-group row">
                             <label for="lname" class="col-sm-1 text-right control-label col-form-label">Body</label>
                             <div class="col-sm-11">
-                                <textarea class="form-control" name="body" style="height: 300px;">{{$post->body}}</textarea>
-                                <!-- <textarea type="text" class="form-control" id="editor" name="body" style="height: 300px;"></textarea> -->
+                                <input name="body" type="hidden">
+                                <div id="editor" style="height: 300px;">{{$post->body}}</div>
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="post_edit">Submit</button>
                     </form>
                 </div>
             </div>
@@ -108,10 +108,30 @@
     <script src="{{asset('admin/assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script>
         $(function() {
+            $(".select2").select2();
             var quill = new Quill('#editor', {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic'],
+                        ['link', 'blockquote', 'code-block', 'image'],
+                        [{
+                            list: 'ordered'
+                        }, {
+                            list: 'bullet'
+                        }]
+                    ]
+                },
                 theme: 'snow'
             });
-            $(".select2").select2();
+            var $target = $('#editor');
+            var $content = JSON.parse($target[0].innerText);
+            quill.setContents($content);
+            $('#post_edit').on('click', function() {
+                var body = document.querySelector('input[name=body]');
+                body.value = JSON.stringify(quill.getContents());
+                $(form).serialize(), $(form).serializeArray();
+                return false;
+            });
         });
     </script>
     @endsection

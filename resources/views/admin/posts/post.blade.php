@@ -15,8 +15,7 @@
             <p class="alert alert-danger">{{$error}}</p>
             @endforeach
             @endif
-            <a href="{{route('tag.index')}}" class="btn btn-info mb-2">Go Back</a>
-
+            <a href="{{route('post.index')}}" class="btn btn-info mb-2">Go Back</a>
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Blog Info</h4>
@@ -86,13 +85,12 @@
                         <div class="form-group row">
                             <label for="lname" class="col-sm-1 text-right control-label col-form-label">Body</label>
                             <div class="col-sm-11">
-                                <textarea id="editor" class="form-control" name="body" style="height: 300px;">
-                                </textarea>
-                                <!-- <textarea type="text" class="form-control" id="editor" name="body" style="height: 300px;"></textarea> -->
+                                <input name="body" id="body" type="hidden">
+                                <div id="editor" style="height: 300px;"></div>
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="post_submit">Submit</button>
                     </form>
                 </div>
             </div>
@@ -106,10 +104,32 @@
     <script src="{{asset('admin/assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script>
         $(function() {
+            $(".select2").select2();
+
             var quill = new Quill('#editor', {
+                modules: {
+                    toolbar: [
+                        [{
+                            header: [1, 2, false]
+                        }],
+                        ['bold', 'italic'],
+                        ['link', 'blockquote', 'code-block', 'image'],
+                        [{
+                            list: 'ordered'
+                        }, {
+                            list: 'bullet'
+                        }]
+                    ]
+                },
+                placeholder: 'Compose an epic...',
                 theme: 'snow'
             });
-            $(".select2").select2();
+            $('#post_submit').on('click', function() {
+                var body = document.querySelector('input[name=body]');
+                body.value = JSON.stringify(quill.getContents());
+                $(form).serialize(), $(form).serializeArray();
+                return false;
+            });
         });
     </script>
     @endsection
