@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Blog Info</h4>
-                    <form action="{{route('post.store')}}" method="POST">
+                    <form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="fname" class="col-sm-1 text-right control-label col-form-label">Title</label>

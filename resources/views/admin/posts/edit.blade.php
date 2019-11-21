@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Blog Info</h4>
-                    <form action="{{route('post.update',$post->id)}}" method="POST">
+                    <form action="{{route('post.update',$post->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">

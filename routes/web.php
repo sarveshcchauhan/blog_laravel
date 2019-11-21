@@ -11,6 +11,10 @@
 |
 */
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 // User Routes
 // Grouping Routes
 Route::group(['namespace' => 'User'], function () {

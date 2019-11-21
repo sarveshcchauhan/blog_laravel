@@ -1,6 +1,6 @@
 @extends('user/app')
 
-@section('heroimg',asset('user/img/post-bg.jpg'))
+@section('heroimg',Storage::disk('local')->url($post->image))
 @section('my-styles')
 <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/libs/quill/dist/quill.snow.css')}}">
 @endsection
