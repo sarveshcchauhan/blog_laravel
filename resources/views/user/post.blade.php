@@ -9,7 +9,7 @@
 @section('hero-subhead','{{$post->subtitle}}') -->
 @section('main-content')
 <!-- Page Header -->
-<header class="masthead" style="background-image: url(@yield('heroimg'))">
+<header class="masthead" style="background-image: url(@yield('heroimg'));">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -30,16 +30,21 @@
                 <small>Created : {{$post->created_at->diffForHumans()}}</small>
                 <small class="float-right">Category :
                     @foreach($post->category as $categories)
-                    {{$categories->name}}
+                    <a href="{{route('blog_category',$categories->slug)}}">
+                        {{$categories->name}}
+                    </a>
                     @endforeach
                 </small>
                 <div id="editor" style="display:none;">{{$post->body}}</div>
                 <div id="body"></div>
                 @foreach($post->tags as $tag)
-                <small class="float-right">
-                    {{$tag->name}}
-                </small>
+                <a href="{{route('blog_tags',$tag->slug)}}" target="_blank">
+                    <small class="float-right btn btn-warning">
+                        {{$tag->name}}
+                    </small>
+                </a>
                 @endforeach
+                <div class="fb-comments mt-5" data-href="{{Request::url()}}" data-width="100%" data-numposts="5"></div>
             </div>
         </div>
     </div>

@@ -15,5 +15,7 @@
 
 <!-- Custom styles for this template -->
 <link href="{{asset('user/css/clean-blog.min.css')}}" rel="stylesheet">
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0&appId=505287413405482&autoLogAppEvents=1"></script>
 @section('my-styles')
 @show
