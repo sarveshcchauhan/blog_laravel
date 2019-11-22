@@ -5,6 +5,9 @@
 
 @section('heroimg',asset('user/img/home-bg.jpg'))
 
+
+@section('main-content')
+
 <!-- Page Header -->
 <header class="masthead" style="background-image: url(@yield('heroimg'))">
     <div class="overlay"></div>
@@ -19,8 +22,6 @@
         </div>
     </div>
 </header>
-
-@section('main-content')
 <!-- Main Content -->
 <div class="container">
     <div class="row">
