@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 text-right control-label ">Checkboxes</label>
+                            <label class="col-sm-1 text-right control-label ">Status</label>
                             <div class="col-sm-5">
                                 <div class="custom-control custom-checkbox mr-sm-2">
                                     <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 status" name="publish" value="1"> <label class="custom-control-label" for="customControlAutosizing1 status">Publish</label>

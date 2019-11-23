@@ -175,7 +175,12 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form-ad').submit();"><i class="fa fa-power-off m-r-5 m-l-5"></i> 
+                                    Logout 
+                                </a>
+                                <form id="logout-form-ad" method="POST" action="{{route('logout')}}"  style="display: none;">
+                                    @csrf
+                                </form>
                             <div class="dropdown-divider"></div>
                             <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
                         </div>
@@ -204,6 +209,7 @@
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('category.index')}}" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Categories</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('tag.index')}}" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tags</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('user.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Users</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('role.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Roles</span></a></li>
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
