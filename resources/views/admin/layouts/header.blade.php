@@ -210,6 +210,8 @@
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('tag.index')}}" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tags</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('user.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Users</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('role.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Roles</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('permission.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Permission</span></a></li>
+
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->

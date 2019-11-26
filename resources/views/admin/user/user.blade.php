@@ -51,13 +51,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-1 text-right control-label">Role</label>
+                            <label class="col-sm-1 col-md-2 text-right control-label">Roles</label>
                             <div class="col-sm-5">
-                                <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
-                                    <option value="1">Editor</option>
-                                    <option value="2">Publisher</option>
-                                    <option value="3">Writer</option>
-                                </select>
+                                <div class="row">
+                                    @foreach($roles as $role)
+                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$role->id}}" name="publish[]" value="{{$role->id}}"> <label class="custom-control-label" for="customControlAutosizing1 {{$role->id}}">{{$role->name}}</label>
+                                    </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <hr>

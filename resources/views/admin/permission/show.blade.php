@@ -6,7 +6,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <a href="{{route('role.create')}}" class="btn btn-primary mb-2">Add Role</a>
+            @if(session()->has('message'))
+        <p class="alert alert-success">{{session('message')}}</p>
+            @endif
+            <a href="{{route('permission.create')}}" class="btn btn-primary mb-2">Add Permissions</a>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Basic Datatable</h5>
@@ -19,18 +22,20 @@
                                             <tr role="row">
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 245px;">Sr No#</th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 381px;" aria-sort="ascending">Name</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 381px;">Permission For </th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 93px;">Edit</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 165px;">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($roles as $role)
+                                            @foreach($permissions as $permission)
                                             <tr>
                                                 <td>{{$loop->index +1}}</td>
-                                                <td class="sorting_1">{{$role->name}}</td>
-                                                <td><a href="{{route('role.edit',$role->id)}}">Edit</a></td>
+                                                <td class="sorting_1">{{$permission->name}}</td>
+                                                <td class="sorting_1">{{$permission->pfor}}</td>
+                                                <td><a href="{{route('permission.edit',$permission->id)}}">Edit</a></td>
                                                 <td>
-                                                    <form id="delete_role_{{$role->id}}" method="POST" action="{{route('role.destroy',$role->id)}}">
+                                                    <form id="delete_permission_{{$permission->id}}" method="POST" action="{{route('permission.destroy',$permission->id)}}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" id="delete-btn" class="btn btn-danger">Delete</button>
@@ -43,6 +48,7 @@
                                             <tr>
                                                 <th rowspan="1" colspan="1">Sr No#</th>
                                                 <th rowspan="1" colspan="1">Name</th>
+                                                <th rowspan="1" colspan="1">Permission For </th>
                                                 <th rowspan="1" colspan="1"></th>
                                                 <th rowspan="1" colspan="1"></th>
                                             </tr>
