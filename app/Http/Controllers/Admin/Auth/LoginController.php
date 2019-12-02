@@ -52,13 +52,19 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        // $admin = admin::where('email', $request->email)->first();
-        // if ($admin->status == 0) {
-        //     return ['email' => "inactive", 'password' => "Currently your account is not active contact admin"];
-        // } else {
+        $admin = admin::where('email', $request->email)->first();
+        // if ($admin->count()) {
+        //     if ($admin->status == 0) {
+        //         return ['email' => "inactive", 'password' => "Currently your account is not active contact admin"];
+        //     } else {
         return ['email' => $request->email, 'password' => $request->password, 'status' => 1];
+        //     }
+        // } else {
+        //     return $request->only($this->username(), 'password');
         // }
     }
+
+
 
     /**
      * Create a new controller instance.
