@@ -7,6 +7,9 @@
     <div class="row">
         <div class="col-12">
             <a href="{{route('user.create')}}" class="btn btn-primary mb-2">Add user</a>
+            @if(session()->has('message'))
+            <p class="alert alert-success">{{session('message')}}</p>
+                @endif
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Basic Datatable</h5>
@@ -20,16 +23,22 @@
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 245px;">Sr No#</th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 381px;" aria-sort="ascending">Name</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Email</th>
+                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Assigned Roles</th>
+                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Status</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 93px;">Edit</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 165px;">Delete</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
+                                            <tbody>
+                                            </thead>
                                             @foreach($users as $user)
                                             <tr>
                                                 <td>{{$loop->index +1}}</td>
                                                 <td class="sorting_1">{{$user->name}}</td>
                                                 <td>{{$user->email}}</td>
+                                                <td>@foreach ($user->roles as $assign_role)
+                                                    {{$assign_role->name}} ,
+                                                @endforeach</td>
+                                                <td>@if($user->status === 1) Active @else Not Active @endif</td>
                                                 <td><a href="{{route('user.edit',$user->id)}}">Edit</a></td>
                                                 <td>
                                                     <form id="delete_user_{{$user->id}}" method="POST" action="{{route('user.destroy',$user->id)}}">
@@ -46,6 +55,8 @@
                                                 <th rowspan="1" colspan="1">Sr No#</th>
                                                 <th rowspan="1" colspan="1">Name</th>
                                                 <th rowspan="1" colspan="1">Email</th>
+                                                <th rowspan="1" colspan="1">Assigned Roles</th>
+                                                <th rowspan="1" colspan="1">Status</th>
                                                 <th rowspan="1" colspan="1"></th>
                                                 <th rowspan="1" colspan="1"></th>
                                             </tr>

@@ -42,6 +42,11 @@
                     <div class="text-center p-t-20 p-b-20">
                         <span class="db"><img src="../../assets/images/logo.png" alt="logo" /></span>
                     </div>
+                    @if($errors->any())
+                    @foreach($errors->all() as $error)
+                    <p class="alert alert-danger fadeIn">{{$error}}</p>
+                    @endforeach
+                    @endif
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" method="POST" action="{{route('admin.login')}}" >
                         @csrf

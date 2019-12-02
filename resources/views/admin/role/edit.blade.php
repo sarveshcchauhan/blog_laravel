@@ -31,7 +31,8 @@
                                         @foreach ($permissions as $permission)
                                         @if($permission->pfor === 'post')
                                         <div class="custom-control custom-checkbox mr-sm-2">
-                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$permission->id}}" name="permission_r[]" value="{{$permission->id}}"> <label class="custom-control-label" for="customControlAutosizing1 {{$permission->id}}">{{$permission->name}}</label>
+                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$permission->id}}" name="permission_r[]" value="{{$permission->id}}" @foreach ($role->permissions as $role_permit) @if($role_permit->id === $permission->id) checked @endif
+                                        @endforeach> <label class="custom-control-label" for="customControlAutosizing1 {{$permission->id}}">{{$permission->name}}</label>
                                         </div>
                                         @endif
                                         @endforeach
@@ -43,7 +44,7 @@
                                     @foreach ($permissions as $permission)
                                     @if($permission->pfor === 'user')
                                     <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$permission->id}}" name="permission_r[]" value="{{$permission->id}}"> <label class="custom-control-label" for="customControlAutosizing1 {{$permission->id}}">{{$permission->name}}</label>
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$permission->id}}" name="permission_r[]" value="{{$permission->id}}"  @foreach ($role->permissions as $role_permit) @if($role_permit->id === $permission->id) checked @endif @endforeach> <label class="custom-control-label" for="customControlAutosizing1 {{$permission->id}}">{{$permission->name}}</label>
                                     </div>
                                     @endif
                                     @endforeach
@@ -55,7 +56,7 @@
                                     @foreach ($permissions as $permission)
                                     @if($permission->pfor === 'other')
                                     <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$permission->id}}" name="permission_r[]" value="{{$permission->id}}"> <label class="custom-control-label" for="customControlAutosizing1 {{$permission->id}}">{{$permission->name}}</label>
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1 {{$permission->id}}" name="permission_r[]" value="{{$permission->id}}"  @foreach ($role->permissions as $role_permit) @if($role_permit->id === $permission->id) checked @endif @endforeach> <label class="custom-control-label" for="customControlAutosizing1 {{$permission->id}}">{{$permission->name}}</label>
                                     </div>
                                     @endif
                                     @endforeach

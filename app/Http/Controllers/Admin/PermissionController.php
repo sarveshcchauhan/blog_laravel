@@ -8,6 +8,11 @@ use App\Model\admin\Permission;
 
 class PermissionController extends Controller
 {
+    //disallowing user to enter the page without login
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -87,7 +92,6 @@ class PermissionController extends Controller
         $permission->name = $request->name;
         $permission->pfor = $request->pfor;
         $permission->save();
-
         return redirect(route('permission.index'))->with('message', 'Permission successfully updated');
     }
 

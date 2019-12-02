@@ -45,7 +45,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate_user = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'password' => 'required_with:cfpassword|string|min:8|same:cfpassword',
+            'cfpassword' => 'required|string|min:8',
+            'phone' => 'required|numeric|min:10',
+        ]);
+
+        $request['password'] = bcrypt($request->password);
+        $user = admin::create($request->all());
+        $user->roles()->sync($request->role);
+        return redirect(route('user.index'))->with('message', 'User created');
     }
 
     /**
@@ -67,7 +78,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = admin::where('id', $id)->first();
+        $roles = role::all();
+        return view('admin/user/edit', compact('user', 'roles'));
     }
 
     /**
@@ -79,7 +92,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate_user = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'phone' => 'required|numeric|min:10',
+        ]);
+
+        $request->status   ?: $request['status'] = 0;
+        admin::where('id', $id)->update($request->except('_token', '_method', 'role'));
+        admin::find($id)->roles()->sync($request->role);
+        return redirect(route('user.index'))->with('message', 'User updated');
     }
 
     /**
@@ -90,6 +112,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        admin::where('id', $id)->delete();
+        return redirect(route('user.index'))->with('message', 'User removed successfully');
     }
 }
