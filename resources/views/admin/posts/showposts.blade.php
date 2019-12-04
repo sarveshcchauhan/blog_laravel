@@ -6,7 +6,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
+            @can('posts.create',Auth::user())
             <a href="{{route('post.create')}}" class="btn btn-primary mb-2">Add Post</a>
+            @endcan
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Basic Datatable</h5>
@@ -22,8 +24,10 @@
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Sub Title</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Slug</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 93px;">Edit</th>
-                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 165px;">Delete</th>
+                                                @can('posts.update',Auth::user())
+                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 93px;">Edit</th>@endcan
+                                                @can('posts.delete',Auth::user())
+                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 165px;">Delete</th>@endcan
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -34,7 +38,10 @@
                                                 <td>{{$post->subtitle}}</td>
                                                 <td>{{$post->slug}}</td>
                                                 <td>{{$post->status}}</td>
+                                                @can('posts.update',Auth::user())
                                                 <td><a href="{{route('post.edit',$post->id)}}">Edit</a></td>
+                                                @endcan
+                                                @can('posts.delete',Auth::user())
                                                 <td>
                                                     <form id="delete_post_{{$post->id}}" method="POST" action="{{route('post.destroy',$post->id)}}">
                                                         @csrf
@@ -42,6 +49,7 @@
                                                         <button type="submit" id="delete-btn" class="btn btn-danger">Delete</button>
                                                     </form>
                                                 </td>
+                                                @endcan
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -52,8 +60,8 @@
                                                 <th rowspan="1" colspan="1">Sub Title</th>
                                                 <th rowspan="1" colspan="1">Slug</th>
                                                 <th rowspan="1" colspan="1">Status</th>
-                                                <th rowspan="1" colspan="1">Edit</th>
-                                                <th rowspan="1" colspan="1">Remove</th>
+                                                @can('posts.update',Auth::user())<th rowspan="1" colspan="1">Edit</th> @endcan
+                                                @can('posts.delete',Auth::user())<th rowspan="1" colspan="1">Remove</th>@endcan
                                             </tr>
                                         </tfoot>
                                     </table>
