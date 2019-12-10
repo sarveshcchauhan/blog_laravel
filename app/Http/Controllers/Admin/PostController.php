@@ -93,7 +93,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   if(Auth::user()->can('posts.update')){
+    {   
+        if(Auth::user()->can('posts.update')){
         $post = post::with('tags', 'category')->where('id', $id)->first();
         $categories = category::all();
         $tags = tag::all();
@@ -144,6 +145,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        
         post::where('id', $id)->delete();
         return redirect(route('post.index'));
     }

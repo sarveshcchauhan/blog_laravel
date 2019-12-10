@@ -175,9 +175,15 @@
                 <ul id="sidebarnav" class="p-t-30">
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('home.index')}}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('post.index')}}" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Posts</span></a></li>
+                    @can('posts.category',Auth::user())
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('category.index')}}" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Categories</span></a></li>
+                    @endcan @can('posts.tag',Auth::user())
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('tag.index')}}" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tags</span></a></li>
+                    @endcan
+                    
+                    @can('users',Auth::user())
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('user.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Users</span></a></li>
+                    @endcan
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('role.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Roles</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('permission.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Permission</span></a></li>
                 </ul>

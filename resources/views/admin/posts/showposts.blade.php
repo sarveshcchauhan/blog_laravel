@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            @can('posts.create',Auth::user())
+                @can('posts.create',Auth::user())
             <a href="{{route('post.create')}}" class="btn btn-primary mb-2">Add Post</a>
             @endcan
             <div class="card">
@@ -60,8 +60,8 @@
                                                 <th rowspan="1" colspan="1">Sub Title</th>
                                                 <th rowspan="1" colspan="1">Slug</th>
                                                 <th rowspan="1" colspan="1">Status</th>
-                                                @can('posts.update',Auth::user())<th rowspan="1" colspan="1">Edit</th> @endcan
-                                                @can('posts.delete',Auth::user())<th rowspan="1" colspan="1">Remove</th>@endcan
+                                                @can('posts.update',Auth::user())<th rowspan="1" colspan="1">Edit</th> @endcan 
+                                                 @can('posts.delete',Auth::user())<th rowspan="1" colspan="1">Remove</th>@endcan
                                             </tr>
                                         </tfoot>
                                     </table>
