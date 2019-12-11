@@ -181,7 +181,7 @@
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('tag.index')}}" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tags</span></a></li>
                     @endcan
                     
-                    @can('users',Auth::user())
+                    @can('users.viewAny',Auth::user())
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('user.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Users</span></a></li>
                     @endcan
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('role.index')}}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Roles</span></a></li>

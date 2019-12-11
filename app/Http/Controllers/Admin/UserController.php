@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Model\admin\admin;
 use App\Model\admin\role;
 
+use Illuminate\Support\Facades\Auth;
+//use auth facades when you want to allow or disallw users permission 
+
 class UserController extends Controller
 {
 
@@ -33,8 +36,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = role::all();
-        return view('admin/user/user', compact('roles'));
+        if(Auth::user()->can('users.create')){
+            $roles = role::all();
+            return view('admin/user/user', compact('roles'));
+        }else{
+            return redirect(route('admin.index'));
+        }
     }
 
     /**
@@ -78,9 +85,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = admin::where('id', $id)->first();
-        $roles = role::all();
-        return view('admin/user/edit', compact('user', 'roles'));
+        if(Auth::user()->can('users.update')){
+            $user = admin::where('id', $id)->first();
+            $roles = role::all();
+            return view('admin/user/edit', compact('user', 'roles'));
+        }else{
+            return redirect(route('user.index'));
+        }
     }
 
     /**

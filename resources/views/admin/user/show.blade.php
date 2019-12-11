@@ -6,7 +6,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
+            @can('users.create',Auth::user())
             <a href="{{route('user.create')}}" class="btn btn-primary mb-2">Add user</a>
+            @endcan
             @if(session()->has('message'))
             <p class="alert alert-success">{{session('message')}}</p>
                 @endif
@@ -25,8 +27,8 @@
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Email</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Assigned Roles</th>
                                                 <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 184px;">Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 93px;">Edit</th>
-                                                <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 165px;">Delete</th>
+                                                @can('users.update',Auth::user())<th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 93px;">Edit</th> @endcan
+                                                @can('users.delete',Auth::user())<th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 165px;">Delete</th> @endcan
                                             </tr>
                                             <tbody>
                                             </thead>
@@ -39,14 +41,14 @@
                                                     {{$assign_role->name}} ,
                                                 @endforeach</td>
                                                 <td>@if($user->status === 1) Active @else Not Active @endif</td>
-                                                <td><a href="{{route('user.edit',$user->id)}}">Edit</a></td>
-                                                <td>
+                                                @can('users.update',Auth::user())<td><a href="{{route('user.edit',$user->id)}}">Edit</a></td>@endcan
+                                                @can('users.delete',Auth::user())<td>
                                                     <form id="delete_user_{{$user->id}}" method="POST" action="{{route('user.destroy',$user->id)}}">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" id="delete-btn" class="btn btn-danger">Delete</button>
                                                     </form>
-                                                </td>
+                                                </td>@endcan
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -57,8 +59,8 @@
                                                 <th rowspan="1" colspan="1">Email</th>
                                                 <th rowspan="1" colspan="1">Assigned Roles</th>
                                                 <th rowspan="1" colspan="1">Status</th>
-                                                <th rowspan="1" colspan="1"></th>
-                                                <th rowspan="1" colspan="1"></th>
+                                                @can('users.update',Auth::user())<th rowspan="1" colspan="1">Edit</th> @endcan
+                                                @can('users.delete',Auth::user())<th rowspan="1" colspan="1">Delete</th>@endcan
                                             </tr>
                                         </tfoot>
                                     </table>

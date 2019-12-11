@@ -17,7 +17,14 @@ class UserPolicy
      */
     public function viewAny(Admin $user)
     {
-        //
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                if($permission->id == 22){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -29,7 +36,7 @@ class UserPolicy
      */
     public function view(Admin $user)
     {
-        //
+        
     }
 
     /**

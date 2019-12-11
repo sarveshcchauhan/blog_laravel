@@ -15,6 +15,8 @@ class TagController extends Controller
     {
         $this->middleware('auth:admin');
 
+        //Allow or disallow permission to access this page
+        $this->middleware('can:posts.tag');
     }
     /**
      * Display a listing of the resource.

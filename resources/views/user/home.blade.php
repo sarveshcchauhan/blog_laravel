@@ -36,6 +36,7 @@
                         {{$post->subtitle}}
                     </h3>
                 </a>
+                <a href="" class="post-meta"><p> <small>10</small>  <i class="fa fa-thumbs-up 2x"></i><i class="fa fa-thumbs-down 2x"></i></p></a>
                 <p class="post-meta">Posted by
                     <a href="#"></a>
                     on {{$post->created_at->diffForHumans()}}</p>
